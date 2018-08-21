@@ -6,12 +6,12 @@ part of fortune;
 class FortuneFromSyscall extends Fortune {
   @override
   FutureOr<String> _nextImpl() async {
-    var completer = new Completer();
+    var completer = new Completer<String>();
     var process = await Process.start('fortune', []);
 
     String fortune = "";
 
-    process.stdout.transform(UTF8.decoder).take(20).listen((String data) {
+    process.stdout.transform(utf8.decoder).take(20).listen((String data) {
       fortune += data;
     })
       ..onError(completer.completeError)
